@@ -16,7 +16,8 @@ class RoleSeeder extends Seeder
         foreach ($this->roles() as $role) {
             Role::factory()->create(
                 [
-                    'name' => $role,
+                    'name' => $role['name'],
+                    'isAdmin' => $role['isAdmin'],
                 ]
             );
         }
@@ -25,9 +26,18 @@ class RoleSeeder extends Seeder
     private function roles(): array
     {
         return [
-            'Администратор',
-            'Руководитель',
-            'Сотрудник',
+            [
+                'name' => 'Администратор',
+                'isAdmin' => true,
+            ],
+            [
+                'name' => 'Руководитель',
+                'isAdmin' => true,
+            ],
+            [
+                'name' => 'Сотрудник',
+                'isAdmin' => false,
+            ],
         ];
     }
 }

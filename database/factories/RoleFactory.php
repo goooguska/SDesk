@@ -18,6 +18,7 @@ class RoleFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name(),
+            'isAdmin' => $this->faker->boolean(),
         ];
     }
 }
