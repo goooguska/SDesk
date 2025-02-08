@@ -6,5 +6,14 @@ export const useRequestStore = defineStore('requestStore', () => {
         return data;
     };
 
-    return { getAllRequests };
+    const sendForCreateRequest = async (request) => {
+        try {
+            const response = await axios.post(`/api/v1/requests`, request);
+            return response.status;
+        } catch (error) {
+            return error.status;
+        }
+    };
+
+    return { getAllRequests, sendForCreateRequest };
 });

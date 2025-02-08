@@ -1,8 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import Header from '@/Templates/Header.vue';
 import Footer from '@/Templates/Footer.vue';
+import EditRequest from '@/Templates/EditRequest.vue';
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import Footer from '@/Templates/Footer.vue';
             <Header />
         </template>
         <template #main>
-
+            <EditRequest />
         </template>
         <template #footer>
             <Footer />

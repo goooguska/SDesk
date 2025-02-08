@@ -23,5 +23,10 @@ export const useUserStore = defineStore('userStore', () => {
         setCurrentUser(data);
     };
 
-    return { fetchUser, getCurrentUser, setCurrentUser };
+    const getAllUsers = async () => {
+        const { data } = await axios.get('/api/v1/users');
+        return data;
+    };
+
+    return { fetchUser, getCurrentUser, setCurrentUser, getAllUsers };
 });

@@ -1,7 +1,7 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
+import InputError from '@/Components/ValidationInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import PrimaryButton from '@/Components/AcceptButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';

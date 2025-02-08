@@ -97,13 +97,15 @@ const filteredRequests = computed(() => {
                             "
                             class="contents"
                         >
-                            <td class="text-dark-green text-xl px-4 py-3 font-medium">
+                            <td
+                                class="px-4 py-3 text-xl font-medium text-dark-green"
+                            >
                                 {{ request.title }}
                             </td>
-                            <td class="text-dark-green text-xl px-4 py-3">
+                            <td class="px-4 py-3 text-xl text-dark-green">
                                 {{ formatDate(request.created_at) }}
                             </td>
-                            <td class="text-dark-green text-xl px-4 py-3">
+                            <td class="px-4 py-3 text-xl text-dark-green">
                                 <template
                                     v-if="request.responsibles.length > 0"
                                 >
@@ -113,13 +115,11 @@ const filteredRequests = computed(() => {
                                     >Не назначен</span
                                 >
                             </td>
-                            <td class="text-dark-green text-xl px-4 py-3">
+                            <td class="px-4 py-3 text-xl text-dark-green">
                                 {{ request.user.fullname }}
                             </td>
                             <td class="px-4 py-3">
-                                <span
-                                    class="text-dark-green text-xl"
-                                >
+                                <span class="text-xl text-dark-green">
                                     {{ request.status.name }}
                                 </span>
                             </td>

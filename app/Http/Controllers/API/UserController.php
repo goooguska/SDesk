@@ -20,6 +20,14 @@ class UserController extends Controller
            ->find($id);
     }
 
+    public function getAllUsers()
+    {
+        return $this->getModel()
+            ->with('role')
+            ->with('department')
+            ->get();
+    }
+
     private function getModel()
     {
         return $this->model;
