@@ -12,9 +12,8 @@ const searchTitle = ref('');
 const sortBy = ref('date');
 
 onMounted(async () => {
-    const id = '15'; // TODO Заменить на userId
-    const userId = userStore.getCurrentUser();
-    requests.value = await requestStore.getAllRequests(id);
+    const user = userStore.getCurrentUser();
+    requests.value = await requestStore.getAllRequests(user.id);
 });
 
 const formatDate = (dateString) => {
