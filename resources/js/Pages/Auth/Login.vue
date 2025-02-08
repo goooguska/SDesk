@@ -1,0 +1,67 @@
+<script setup>
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { Head, useForm } from '@inertiajs/vue3';
+
+defineProps({
+    status: {
+        type: String,
+    },
+});
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false,
+});
+const submit = () => {
+    form.post(route('login'), {
+        onFinish: () => form.reset('password'),
+    });
+};
+</script>
+
+<template>
+    <GuestLayout>
+        <Head title="Вход" />
+        <div v-if="status" class="text-green-600 text-sm mb-4 font-medium">
+            {{ status }}
+        </div>
+        <form @submit.prevent="submit" class="mx-4">
+            <div>
+                <p class="my-4 text-xl">Вход</p>
+                <InputLabel for="email" value="Email" />
+                <TextInput
+                    id="email"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.email"
+                    required
+                />
+                <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+            <div class="mt-4">
+                <InputLabel for="password" value="Пароль" />
+                <TextInput
+                    id="password"
+                    type="password"
+                    class="mt-1 block w-full"
+                    v-model="form.password"
+                    required
+                />
+                <InputError class="mt-2" :message="form.errors.password" />
+            </div>
+            <div class="mt-4 flex items-center justify-center text-center">
+                <PrimaryButton
+                    class="my-4"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Войти
+                </PrimaryButton>
+            </div>
+        </form>
+    </GuestLayout>
+</template>
