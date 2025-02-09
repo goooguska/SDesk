@@ -3,7 +3,7 @@ import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
     modelValue: String,
-    disabled: Boolean
+    disabled: Boolean,
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -18,7 +18,7 @@ const emit = defineEmits(['update:modelValue']);
             :value="modelValue"
             @input="emit('update:modelValue', $event.target.value)"
             :disabled="disabled"
-            class="border-gray-300 focus:ring-green-500 h-60 w-full rounded-md border focus:outline-none focus:ring-2 disabled:bg-gray-200 disabled:cursor-not-allowed"
+            class="border-gray-300 focus:ring-green-500 disabled:bg-gray-200 h-60 w-full rounded-md border focus:outline-none focus:ring-2 disabled:cursor-not-allowed"
         ></textarea>
     </div>
 </template>

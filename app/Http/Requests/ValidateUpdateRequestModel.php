@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\StatusRequestEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateRequestModel extends FormRequest
+class ValidateUpdateRequestModel extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +23,12 @@ class ValidateRequestModel extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|string',
-            'title' => 'required|string|max:255',
-            'user_id' => 'required|int|exists:users,id',
-            'responsible_id' => 'required|int|exists:users,id',
+            'status_id' => [
+                'required',
+                'int',
+                'in:' . implode(',', StatusRequestEnum::values()),
+            ],
         ];
     }
+
 }

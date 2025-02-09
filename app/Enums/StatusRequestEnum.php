@@ -2,14 +2,18 @@
 
 namespace App\Enums;
 
-enum StatusRequestEnum
+enum StatusRequestEnum: int
 {
-    const IN_WORK = 1;
+    case IN_WORK = 1;
 
-    const NEW = 2;
+    case NEW = 2;
 
-    const COMPLETE = 3;
+    case COMPLETE = 3;
 
-    const REJECT = 4;
+    case REJECT = 4;
 
+    public static function values(): array
+    {
+        return array_map(fn($enum) => $enum->value, self::cases());
+    }
 }

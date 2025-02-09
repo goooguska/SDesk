@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\StatusRequestEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidateRequestModel;
+use App\Http\Requests\ValidateCreateRequestModel;
+use App\Http\Requests\ValidateUpdateRequestModel;
 use App\Models\Request as RequestModel;
 use App\Models\Responsible;
 
@@ -26,12 +27,33 @@ class RequestController extends Controller
             ->get();
     }
 
-    public function createRequest(ValidateRequestModel $request)
+    public function createRequest(ValidateCreateRequestModel $request)
     {
         $fields = $request->all();
         $fields['status_id'] = StatusRequestEnum::NEW;
 
-        return $this->getModel()->create($fields);
+        $created = $this->getModel()->create($fields);
+
+        if ($created){
+            return response()->json([
+                'message' => 'Заявка успешно создана.',
+            ], 201);
+        }
+    }
+
+    public function updateRequest(ValidateUpdateRequestModel $request, $id)
+    {
+        $fields = $request->only(['status_id']);
+        $updated = $this->getModel()
+            ->newQuery()
+            ->where('id', $id)
+            ->update($fields);
+
+        if ($updated) {
+            return response()->json([
+                'message' => 'Заявка успешно обновлена.',
+            ], 201);
+        }
     }
 
     private function defaultQueryRequest()
@@ -45,5 +67,4 @@ class RequestController extends Controller
     {
         return $this->model;
     }
-
 }

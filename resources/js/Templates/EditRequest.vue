@@ -31,7 +31,7 @@ const createRequest = async () => {
         description: text.value,
     };
     responseStatus.value = await requestStore.sendForCreateRequest(request);
-    if (responseStatus.value === 201) {
+    if (responseStatus.value.status === 201) {
         selectedUser.value = '';
         title.value = '';
         text.value = '';
