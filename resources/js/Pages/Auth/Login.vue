@@ -1,10 +1,10 @@
 <script setup>
 import InputError from '@/Components/ValidationInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/AcceptButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 defineProps({
     status: {
@@ -53,7 +53,7 @@ const submit = () => {
                 />
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
-            <div class="mt-4 flex items-center justify-center text-center">
+            <div class="text-center">
                 <PrimaryButton
                     class="my-4"
                     :class="{ 'opacity-25': form.processing }"
