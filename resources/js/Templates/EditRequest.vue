@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted, toRaw } from 'vue';
-import NavLink from '@/Components/NavLink.vue';
 import AcceptButton from '@/Components/AcceptButton.vue';
 import TextArea from '@/Components/TextArea.vue';
 import { useUserStore } from '@/Stores/useUserStore.js';
 import { useRequestStore } from '@/Stores/useRequestStore.js';
 import ValidationFields from '@/Templates/ValidationFields.vue';
+import BackLink from '@/Components/BackLink.vue';
 
 const userStore = useUserStore();
 const requestStore = useRequestStore();
@@ -23,8 +23,10 @@ onMounted(async () => {
 const createRequest = async () => {
     responseStatus.value = '';
     const user = toRaw(selectedUser.value);
+    const currentUser = userStore.getCurrentUser();
     const request = {
-        user_id: user.id,
+        user_id: currentUser.id,
+        responsible_id: user.id,
         title: title.value,
         description: text.value,
     };
@@ -39,11 +41,7 @@ const createRequest = async () => {
 
 <template>
     <div>
-        <NavLink class="mb-2 flex items-center gap-1" :href="route('home')">
-            <img src="/storage/images/back-arrow.svg" alt="Back" />
-            <p class="text-xl text-dark-green">к заявкам</p>
-        </NavLink>
-
+        <BackLink :href="'home'"> к заявкам </BackLink>
         <div class="border-4 border-gray">
             <div class="flex w-full max-w-full gap-4 px-12 pt-5">
                 <div class="flex w-6/12 max-w-full items-center gap-4">
@@ -73,7 +71,7 @@ const createRequest = async () => {
             </div>
 
             <div>
-                <TextArea v-model:text="text" />
+                <TextArea :disabled="false" v-model="text" />
             </div>
 
             <div v-if="responseStatus">

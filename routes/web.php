@@ -26,7 +26,7 @@ Route::prefix('requests')->name('requests.')
     ->group(function (Router $router) {
        $router->get('/create-request', [RequestController::class, 'create'] )->name('createRequest');
        $router->get('/manage-requests', [RequestController::class, 'manage'])->name('manageRequest');
-       $router->get('/show-request/{requestId}', [RequestController::class, 'show'])->name('showRequest');
+       $router->get('/manage-requests/{requestId}', [RequestController::class, 'show'])->name('showRequest');
 
     });
 

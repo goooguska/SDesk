@@ -19,12 +19,14 @@ class RequestSeeder extends Seeder
         $statuses = Status::all();
 
         foreach ($this->requests() as $request) {
-            Request::factory()->create(
-                array_merge($request, [
-                    'user_id' => $users->unique()->random(),
-                    'status_id' => $statuses->unique()->random(),
-                ])
-            );
+            $user = $users->random();
+            $responsible = $users->reject(fn($u) => $u->id === $user->id)->random();
+
+            Request::factory()->create([
+                'user_id' => $user->id,
+                'status_id' => $statuses->random()->id,
+                'responsible_id' => $responsible->id,
+            ]);
         }
     }
 

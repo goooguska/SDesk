@@ -14,6 +14,7 @@ class Request extends Model
     protected $fillable = [
         'user_id',
         'status_id',
+        'responsible_id',
         'title',
         'description',
     ];
@@ -23,13 +24,15 @@ class Request extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function responsible(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'responsible_id');
+    }
+
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
 
-    public function responsibles(): HasMany
-    {
-        return $this->hasMany(Responsible::class);
-    }
 }

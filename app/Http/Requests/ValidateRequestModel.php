@@ -25,6 +25,7 @@ class ValidateRequestModel extends FormRequest
             'description' => 'required|string',
             'title' => 'required|string|max:255',
             'user_id' => 'required|int|exists:users,id',
+            'responsible_id' => 'required|int|exists:users,id',
         ];
     }
 }

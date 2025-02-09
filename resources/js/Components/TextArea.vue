@@ -1,12 +1,12 @@
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
-const text = ref('');
-const emit = defineEmits(['update:text']);
+const props = defineProps({
+    modelValue: String,
+    disabled: Boolean
+});
 
-const handleInput = () => {
-    emit('update:text', text.value);
-};
+const emit = defineEmits(['update:modelValue']);
 </script>
 
 <template>
@@ -15,9 +15,10 @@ const handleInput = () => {
             Текст заявки
         </label>
         <textarea
-            v-model="text"
-            @input="handleInput"
-            class="border-gray-300 focus:ring-green-500 h-60 w-full rounded-md border focus:outline-none focus:ring-2"
+            :value="modelValue"
+            @input="emit('update:modelValue', $event.target.value)"
+            :disabled="disabled"
+            class="border-gray-300 focus:ring-green-500 h-60 w-full rounded-md border focus:outline-none focus:ring-2 disabled:bg-gray-200 disabled:cursor-not-allowed"
         ></textarea>
     </div>
 </template>

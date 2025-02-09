@@ -63,16 +63,10 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('responsible_id')->constrained('users');
             $table->foreignId('status_id')->constrained('statuses');
             $table->string('title');
             $table->string('description');
-            $table->timestamps();
-        });
-
-        Schema::create('responsibles', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('request_id')->constrained('requests');
             $table->timestamps();
         });
     }
@@ -82,7 +76,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('responsibles');
         Schema::dropIfExists('requests');
         Schema::dropIfExists('users');
         Schema::dropIfExists('statuses');

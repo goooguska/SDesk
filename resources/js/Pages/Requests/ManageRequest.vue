@@ -7,7 +7,7 @@ import AllRequests from '@/Templates/AllRequests.vue';
 </script>
 
 <template>
-    <Head title="Главная" />
+    <Head title="Управление заявками" />
 
     <AuthenticatedLayout>
         <template #header>

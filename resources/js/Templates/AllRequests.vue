@@ -106,9 +106,9 @@ const filteredRequests = computed(() => {
                             </td>
                             <td class="px-4 py-3 text-xl text-dark-green">
                                 <template
-                                    v-if="request.responsibles.length > 0"
+                                    v-if="request.responsible"
                                 >
-                                    {{ request.responsibles[0].user.fullname }}
+                                    {{ request.responsible.fullname }}
                                 </template>
                                 <span v-else class="text-gray-500 italic"
                                     >Не назначен</span

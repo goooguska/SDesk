@@ -6,6 +6,7 @@ use App\Enums\StatusRequestEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateRequestModel;
 use App\Models\Request as RequestModel;
+use App\Models\Responsible;
 
 class RequestController extends Controller
 {
@@ -37,11 +38,8 @@ class RequestController extends Controller
     {
         return $this->getModel()
             ->newQuery()
-            ->with(['responsibles', 'responsibles.user'])
-            ->with('user')
-            ->with('status');
+            ->with(['user', 'status', 'responsible']);
     }
-
 
     private function getModel()
     {

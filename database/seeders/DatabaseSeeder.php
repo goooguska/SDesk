@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('pass'),
         ]);
 
         $this->call([
@@ -24,8 +24,6 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             UserSeeder::class,
             RequestSeeder::class,
-            ResponsibleSeeder::class,
-
         ]);
     }
 }

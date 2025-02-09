@@ -7,7 +7,7 @@ import EditRequest from '@/Templates/EditRequest.vue';
 </script>
 
 <template>
-    <Head title="Главная" />
+    <Head title="Создание заявки" />
 
     <AuthenticatedLayout>
         <template #header>
