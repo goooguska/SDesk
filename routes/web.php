@@ -1,21 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Pages\RequestController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-// Route::get('/', function () {
-//     return inertia('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::get('/', function () {
     return inertia('Home');
@@ -30,9 +18,11 @@ Route::prefix('requests')->name('requests.')
 
     });
 
-
-
-
-Route::middleware('auth')->group(function () {});
+Route::fallback(function () {
+    return Inertia::render('Errors/NotFound', [
+        'status' => 404,
+        'title' => 'Страница не найдена'
+    ]);
+});
 
 require __DIR__ . '/auth.php';

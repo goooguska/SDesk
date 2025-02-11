@@ -47,5 +47,34 @@ export const useRequestStore = defineStore('requestStore', () => {
         }
     };
 
-    return { getAllRequests, sendForCreateRequest, updateRequest };
+    const deleteRequest = async (requestId) => {
+        try {
+            const response = await axios.delete(
+                `/api/v1/requests/${requestId}`,
+            );
+
+            return {
+                success: true,
+                data: response.data,
+                message: response.data?.message || 'Заявка успешно удалена',
+                status: response.status,
+            };
+        } catch (error) {
+            throw {
+                success: false,
+                message:
+                    error.response?.data?.message ||
+                    'Ошибка при удалении заявки',
+                status: error.response?.status || 500,
+                errors: error.response?.data?.errors || null,
+            };
+        }
+    };
+
+    return {
+        getAllRequests,
+        sendForCreateRequest,
+        updateRequest,
+        deleteRequest,
+    };
 });

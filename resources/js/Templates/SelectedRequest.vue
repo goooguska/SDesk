@@ -2,15 +2,14 @@
 import { useUserStore } from '@/Stores/useUserStore.js';
 import TextArea from '@/Components/TextArea.vue';
 import BackLink from '@/Components/BackLink.vue';
-import { router } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
 import { useStatusStore } from '@/Stores/useStatusStore.js';
 import RejectButton from '@/Components/RejectButton.vue';
 import AcceptButton from '@/Components/AcceptButton.vue';
-import StatusEnum from '@/Enums/StatusEnum.js';
 import ValidationFields from '@/Templates/ValidationFields.vue';
 import ValidationInput from '@/Components/ValidationInput.vue';
 import { useRequestStore } from '@/Stores/useRequestStore.js';
+import { router } from '@inertiajs/vue3';
 
 const userStore = useUserStore();
 const statusStore = useStatusStore();
@@ -28,14 +27,14 @@ onMounted(async () => {
     statuses.value = await statusStore.getAllStatuses();
 });
 
-const rejectRequest = async () => {
-    responseStatus.value = '';
-    message.value = '';
+const acceptRequest = async () => {
+    clearInputFields();
 
-    if (selectedStatus.value !== StatusEnum.REJECTED) {
-        message.value = 'Неверный статус! Ожидается "Отклонена"';
+    if (selectedStatus.value === currentStatus.id) {
+        message.value = 'Статус не изменен! Выберите другой статус';
         return;
     }
+
     const request = {
         id: currentRequest.id,
         status_id: selectedStatus.value,
@@ -43,22 +42,24 @@ const rejectRequest = async () => {
     responseStatus.value = await requestStore.updateRequest(request);
 };
 
-const acceptRequest = async () => {
+const deleteRequest = async () => {
+    clearInputFields();
+
+    try {
+        const result = await requestStore.deleteRequest(currentRequest.id);
+        if (result.success) {
+            router.visit('/');
+        }
+    } catch (error) {
+        message.value = error.message;
+        responseStatus.value = error;
+    }
+};
+
+const clearInputFields = () => {
     responseStatus.value = '';
     message.value = '';
-
-    if (selectedStatus.value === StatusEnum.REJECTED || selectedStatus.value === StatusEnum.NEW) {
-        message.value = 'Неверный статус! Ожидается "В работе" или "Выполнена"';
-        return;
-    }
-
-    const request = {
-        id: currentRequest.id,
-        status_id: selectedStatus.value,
-    };
-    responseStatus.value = await requestStore.updateRequest(request);
-}
-
+};
 
 const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -131,9 +132,6 @@ const formatDate = (dateString) => {
                     <div
                         class="mr-10 flex w-10/12 max-w-full justify-end gap-4"
                     >
-                        <RejectButton @click="rejectRequest"
-                            >Отклонить</RejectButton
-                        >
                         <AcceptButton @click="acceptRequest"
                             >Подтвердить</AcceptButton
                         >
@@ -141,7 +139,15 @@ const formatDate = (dateString) => {
                 </div>
             </div>
 
-            <div v-else></div>
+            <div v-else>
+                <div class="mb-5 mr-10 flex justify-end">
+                    <RejectButton
+                        class="w-full max-w-[340px]"
+                        @click="deleteRequest"
+                        >Удалить заявку</RejectButton
+                    >
+                </div>
+            </div>
         </div>
     </div>
 </template>

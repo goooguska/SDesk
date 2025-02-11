@@ -10,7 +10,7 @@
             </div>
         </main>
 
-        <footer class="my-12 flex justify-center bg-white">
+        <footer class="my-12 flex justify-center bg-white" v-if="$slots.footer">
             <slot name="footer" />
         </footer>
     </div>

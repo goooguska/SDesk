@@ -56,6 +56,20 @@ class RequestController extends Controller
         }
     }
 
+    public function deleteRequest($id)
+    {
+        $deleted = $this->getModel()
+            ->newQuery()
+            ->where('id', $id)
+            ->delete();
+
+        if ($deleted){
+            return response()->json([
+                'message' => 'Заявка успешно удалена'
+            ], 200);
+        }
+    }
+
     private function defaultQueryRequest()
     {
         return $this->getModel()

@@ -21,5 +21,3 @@ import SelectedRequest from '@/Templates/SelectedRequest.vue';
         </template>
     </AuthenticatedLayout>
 </template>
-
-<style scoped></style>

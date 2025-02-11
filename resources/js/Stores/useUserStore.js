@@ -28,11 +28,10 @@ export const useUserStore = defineStore('userStore', () => {
         return data;
     };
 
-    //TODO: Поменять role
     const checkIsAdmin = () => {
         const user = getCurrentUser();
-        return 1;
-        // return user.role.isAdmin
+
+        return user.role.isAdmin;
     };
 
     return {
